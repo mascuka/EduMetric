@@ -5,11 +5,14 @@ import { revalidatePath } from 'next/cache';
 
 export async function registrarPaciente(nombre: string, fechaNac: string, curso: string) {
   const client = await db.connect();
+  
   try {
+    // IMPORTANTE: El nombre 'pacientes' debe ser igual al que pusiste en el SQL de Neon
     await client.sql`
       INSERT INTO pacientes (nombre, fecha_nac, curso)
       VALUES (${nombre}, ${fechaNac}, ${curso});
     `;
+    
     revalidatePath('/pacientes'); 
     return { success: true };
   } catch (error) {
