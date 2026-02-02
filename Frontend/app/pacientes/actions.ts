@@ -13,7 +13,7 @@ export async function registrarPaciente(nombre: string, fechaNac: string, curso:
     revalidatePath('/pacientes'); 
     return { success: true };
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error en base de datos:', error);
     return { success: false };
   } finally {
     client.release();
